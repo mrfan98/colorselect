@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .selectColor{
+            width: 100px;
+            height: 100px;
+            /* background-color: pink; */
+            text-align: center;
+            line-height: 50px;
+        }
+        a{
+            color: black;
+            text-decoration: none;
+            font-size: 5px;
+        }
+        .Color{
+            width: 200px;
+            height: 130px;
+            background-color: rgb(231, 243, 231);
+        }
+        ul{
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        li{
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            margin: 2.5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="selectColor">
+        <a href="#" class="select">选择颜色</a>
+    </div>
+    <div class="Color" style="display: none;">
+        <ul id="Color_ul">
+        </ul>
+    </div>
+
+<!-- _____________________________________________________________________________________________ -->
+    <script >
+      let selectColor=document.querySelector('.selectColor')
+      let select=document.querySelector('.select')
+      let  _Color=document.querySelector('.Color')
+      let Color_ul=document.querySelector('#Color_ul')
+    //点击文字显示出调色版 
+      select.addEventListener('click',()=>{
+        _Color.style="display:block"
+        colorPicker()
+      })
+     // 点击颜色之后关闭调色板
+      _Color.addEventListener('click',()=>{
+        _Color.style="display:none"
+      })
+    // 动态添加调色版
+    let colorPicker = function(){
+         this.colorPool = ["#000000","#993300","#333300","#003300","#003366","#000080",
+         "#333399","#333333","#800000","#FF6600","#808000","#008000","#008080","#0000FF",
+         "#666699","#808080","#FF0000","#FF9900","#99CC00","#339966","#33CCCC","#3366FF",
+         "#800080","#999999","#FF00FF","#FFCC00","#FFFF00","#00FF00","#00FFFF","#00CCFF",
+         "#993366","#CCCCCC","#FF99CC","#FFCC99","#FFFF99","#CCFFCC","#CCFFFF","#99CCFF","#CC99FF","#FFFFFF"];
+         initialize();
+}
+// 动态添加li
+   let initialize=function(){
+          let count=0;
+          let html = '';
+          let self = this;
+          for(let i=0;i<50;i++){
+            html+= '<li  style="background:'+
+             this.colorPool[count]+'">&nbsp;</li>';
+            count++;
+          }
+          Color_ul.innerHTML=html;
+          let lis = Color_ul.getElementsByTagName('li');
+          for(let i=0,len=lis.length;i<len;i++){
+           lis[i].onclick = function(){
+              setColor(this.style.backgroundColor);
+           }
+          }
+   }
+// 点击之后设置颜色
+ let setColor = function(c){
+    selectColor.style.backgroundColor = c ;
+    select.innerHTML=c;
+     }
+
+    </script>
+    
+</body>
+</html>
